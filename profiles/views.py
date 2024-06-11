@@ -7,6 +7,18 @@ from .models import Profile
 
 
 def index(request):
+    """
+    Render the profiles index page.
+
+    This view retrieves all user profiles from the database and renders
+    the profiles index page ('profiles_index.html') with a list of user profiles.
+
+    Parameters:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The HTTP response object containing the rendered template.
+    """
     profiles_list = Profile.objects.all()
     context = {'profiles_list': profiles_list}
     return render(request, 'profiles/index.html', context)
@@ -19,6 +31,19 @@ def index(request):
 
 
 def profile(request, username):
+    """
+    Render the details page for a specific user profile.
+
+    This view retrieves a user profile with the specified username from the database
+    and renders the details page ('profile.html') with information about the user profile.
+
+    Parameters:
+        request (HttpRequest): The HTTP request object.
+        username (str): The username of the user profile to display.
+
+    Returns:
+        HttpResponse: The HTTP response object containing the rendered template.
+    """
     profile = Profile.objects.get(user__username=username)
     context = {'profile': profile}
     return render(request, 'profiles/profile.html', context)

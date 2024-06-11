@@ -8,6 +8,18 @@ from .models import Letting
 
 
 def index(request):
+    """
+    Render the lettings index page.
+
+    This view retrieves all letting properties from the database and renders the lettings
+    index page ('lettings_index.html') with a list of letting properties.
+
+    :param request: The HTTP request object.
+    :type request: HttpRequest
+
+    :return: The HTTP response object containing the rendered template.
+    :rtype: HttpResponse
+    """
     lettings_list = Letting.objects.all()
     context = {'lettings_list': lettings_list}
     return render(request, 'lettings/index.html', context)
@@ -27,6 +39,21 @@ def index(request):
 
 
 def letting(request, letting_id):
+    """
+    Render the details page for a specific letting property.
+
+    This view retrieves a letting property with the specified ID from the database and renders the
+    details page ('letting.html') with information about the letting property, including its
+    title and address.
+
+    :param request: The HTTP request object.
+    :type request: HttpRequest
+    :param letting_id: The ID of the letting property to display.
+    :type letting_id: int
+
+    :return: The HTTP response object containing the rendered template.
+    :rtype: HttpResponse
+    """
     letting = Letting.objects.get(id=letting_id)
     context = {
         'title': letting.title,
