@@ -36,7 +36,7 @@ def page_not_found(request, exception):
         HttpResponse: The HttpResponse object with a rendered 404 error page and a status code
         of 404.
     """
-    response = render(request, "template/404.html", {})
+    response = render(request, "404.html", {})
     response.status_code = 404
     return response
 
@@ -57,6 +57,6 @@ def server_error(request, exception=None):
         HttpResponse: The HttpResponse object with a rendered 500 error page and a status code
         of 500.
     """
-    response = render(request, "template/500.html", {})
+    response = render(request, "500.html", {})
     response.status_code = 500
     return response

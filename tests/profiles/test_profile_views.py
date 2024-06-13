@@ -31,9 +31,9 @@ class ProfilesViewsTestCase(TestCase):
     def test_profile_404_view(self):
         path = reverse('profiles:profile', args=["inconnu"])
         response = self.client.get(path)
-        excepted_content = "<h1>Page not found</h1>"
+        excepted_content = "Error 404 - Page not found"
         self.assertContains(response, excepted_content, status_code=404)
-        assertTemplateUsed(response, "templates/404.html")
+        assertTemplateUsed(response, "404.html")
 
     def test_profile_noprofile_view(self):
         path = reverse('profiles:index')

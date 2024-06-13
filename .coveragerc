@@ -1,0 +1,11 @@
+[run]
+source = .
+omit =
+    tests/*
+    */tests/*
+
+[report]
+exclude_liens = 
+    pragma: no cover
+    if __name__ == .__main__.:
+    if settings.DEBUG

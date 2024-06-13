@@ -18,7 +18,7 @@ class LettingViewsTestCase(TestCase):
         response = self.client.get(path)
         excepted_content = "<h1 class=\"page-header-ui-title mb-3 display-6\">Lettings</h1>"
         self.assertContains(response, excepted_content, status_code=200)
-        assertTemplateUsed(response, "lettings:index.html")
+        assertTemplateUsed(response, "lettings/index.html")
 
     def test_letting_view(self):
         letting = Letting.objects.create(title="My letting", address=self.address)
@@ -31,10 +31,11 @@ class LettingViewsTestCase(TestCase):
 
     def test_letting_404_view(self):
         path = reverse('lettings:letting', args=[0])
+        print(path)
         response = self.client.get(path)
-        excepted_content = "<h1>Page not found</h1>"
+        excepted_content = "Error 404 - Page not found"
         self.assertContains(response, excepted_content, status_code=404)
-        assertTemplateUsed(response, "templates/404.html")
+        assertTemplateUsed(response, "404.html")
 
     def test_letting_noletting_view(self):
         path = reverse('lettings:index')

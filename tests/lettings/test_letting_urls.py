@@ -18,6 +18,8 @@ class LettingsUrlsTestCase(TestCase):
         assert resolve(path).view_name == "lettings:index"
 
     def test_letting_url(self):
-        path = reverse('lettings:letting', args=[1])
-        assert path == "/lettings/1"
+        letting_id = self.letting.id
+        path = reverse('lettings:letting', args=[letting_id])
+        # print(path)
+        assert path == f"/lettings/{letting_id}/"
         assert resolve(path).view_name == "lettings:letting"
