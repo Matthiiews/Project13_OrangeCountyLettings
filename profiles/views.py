@@ -2,6 +2,11 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from .models import Profile
 
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 # Sed placerat quam in pulvinar commodo. Nullam laoreet consectetur ex, sed consequat libero
 # pulvinar eget. Fusc
 # faucibus, urna quis auctor pharetra, massa dolor cursus neque, quis dictum lacus d
@@ -20,6 +25,12 @@ def index(request):
     Returns:
         HttpResponse: The HTTP response object containing the rendered template.
     """
+    logger.debug("profiles-DEBUG")
+    logger.info("profiles-INFO")
+    logger.warning("profiles-WARNING")
+    logger.error("profiles-ERROR")
+    logger.critical("profiles-CRITICAL")
+
     profiles_list = Profile.objects.all()
     context = {'profiles_list': profiles_list}
     return render(request, 'profiles/index.html', context)

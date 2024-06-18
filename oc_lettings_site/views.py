@@ -1,5 +1,10 @@
 from django.shortcuts import render
 
+import logging
+
+
+logger = logging.getLogger(__name__)
+
 
 # Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie quam lobortis leo
 # consectetur ullamcorper non id est. Praesent dictum, nulla eget feugiat sagittis, sem mi
@@ -18,6 +23,12 @@ def index(request):
     :return: Rendered homepage template.
     :rtype: HttpResponse
     """
+    logger.debug("main-DEBUG")
+    logger.info("main-INFO")
+    logger.warning("main-WARNING")
+    logger.error("main-ERROR")
+    logger.critical("main-CRITICAL")
+
     return render(request, 'index.html')
 
 

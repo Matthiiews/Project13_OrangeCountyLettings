@@ -2,6 +2,11 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from .models import Letting
 
+import logging
+
+
+logger = logging.getLogger(__name__)
+
 # Aenean leo magna, vestibulum et tincidunt fermentum, consectetur quis velit. Sed non placerat
 # massa. Integer est nunc, pulvinar a
 # tempor et, bibendum id arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
@@ -21,6 +26,12 @@ def index(request):
     :return: The HTTP response object containing the rendered template.
     :rtype: HttpResponse
     """
+    logger.debug("lettings-DEBUG")
+    logger.info("lettings-INFO")
+    logger.warning("lettings-WARNING")
+    logger.error("lettings-ERROR")
+    logger.critical("lettings-CRITICAL")
+
     lettings_list = Letting.objects.all()
     context = {'lettings_list': lettings_list}
     return render(request, 'lettings/index.html', context)

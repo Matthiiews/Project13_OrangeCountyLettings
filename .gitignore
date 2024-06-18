@@ -2,5 +2,7 @@
 *.pyc
 venv
 .venv
+.env
 htmlcov
 utils
+logs

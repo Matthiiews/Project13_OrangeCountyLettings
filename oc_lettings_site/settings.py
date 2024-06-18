@@ -1,22 +1,27 @@
 import os
 import sentry_sdk
 
+from dotenv import load_dotenv
+from sentry_sdk.integrations.django import DjangoIntegration
 from pathlib import Path
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# take environment variables from .env
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', default='default_local_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG_VALUE', default=False)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -75,7 +80,7 @@ WSGI_APPLICATION = 'oc_lettings_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'oc-lettings-site.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, os.environ.get('DJANGO_DATABASE_NAME') + '.sqlite3'),
     }
 }
 
@@ -122,17 +127,78 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static", ]
 
 # Settings for Sentry
-dsn = "https://22f686583d9be196408224364791affb@o4506979700834304"
-dsn += ".ingest.us.sentry.io/4507413369389056"
+try:
+    DSN_SENTRY = os.environ['DSN_SENTRY']
+except KeyError:
+    DSN_SENTRY = ''
 
 sentry_sdk.init(
-    dsn=dsn,
+    dsn=DSN_SENTRY,
+    integrations=[
+        DjangoIntegration(
+            transaction_style="url",
+            middleware_spans=True,
+            signals_spans=False,
+            cache_spans=False,
+        )
+    ],
 
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
-    traces_sample_rate=1.0,
-    # Set profiles_sample_rate to 1.0 to profile 100%
-    # of sampled transactions.
     # We recommend adjusting this value in production.
-    profiles_sample_rate=1.0,
+    traces_sample_rate=1.0,
+    send_default_pii=True
 )
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    "formatters": {
+        "verbose": {
+            "format": "{asctime} {levelname} {module} {message}",
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    'handlers': {
+        'console': {
+            "level": "DEBUG",
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'file': {
+            "level": "DEBUG",
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
+            'when': 'midnight',  # Rotate logs at midnight
+            'backupCount': 7,    # Keep logs for 7 days
+            'formatter': 'verbose'
+        },
+        'sentry': {
+            'level': 'ERROR',
+            'class': 'sentry_sdk.integrations.logging.EventHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        "root": {
+            "handlers": ["console"],
+            "level": "WARNING",
+        },
+        'lettings': {
+            'handlers': ['file', 'console', 'sentry'],
+            'level': 'DEBUG',
+        },
+        'profiles': {
+            'handlers': ['file', 'console', 'sentry'],
+            'level': 'INFO',
+        }
+    },
+}
+
+DEBUG_PROPAGATE_EXCEPTIONS = True
