@@ -1,5 +1,6 @@
 import os
 import sentry_sdk
+import environ
 
 from dotenv import load_dotenv
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -8,6 +9,10 @@ from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
 
 # take environment variables from .env
 load_dotenv()
@@ -76,6 +81,11 @@ WSGI_APPLICATION = 'oc_lettings_site.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+DATABASE_NAME = os.environ.get('DJANGO_DATABASE_NAME', 'default_db_name')
 
 DATABASES = {
     'default': {
