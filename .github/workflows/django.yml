@@ -29,8 +29,8 @@ jobs:
     - name: Creates and sets environment variable
       id: dot_env_creation
       run: |
-        echo "DSN=${{ secrets.SENTRY_DSN }}" > .env
-        echo "APP_SECRET_KEY=${{ secrets.APP_SECRET_KEY }}" >> .env
+        echo "DSN_SENTRY=${{ secrets.DSN_SENTRY }}" > .env
+        echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
 
     - name: Run linting
       run: |
@@ -39,7 +39,7 @@ jobs:
       
     - name: Run Tests
       run: |
-        python manage.py test
+        python manage.py tests
       if: ${{ steps.dot_env_creation.outcome }} == "success"
 
     - name: Ensures test coverage is above 80%
