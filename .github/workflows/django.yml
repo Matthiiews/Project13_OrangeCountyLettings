@@ -30,7 +30,7 @@ jobs:
       id: dot_env_creation
       run: |
         echo "DSN_SENTRY=${{ secrets.DSN_SENTRY }}" > .env
-        echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
+        echo "SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
         echo "DJANGO_DATABASE_NAME=${{ secrets.DJANGO_DATABASE_NAME }}" >> .env
 
     - name: Run linting
