@@ -13,7 +13,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.7, 3.8, 3.9, 3.11]
+        python-version: [3.11]
 
     steps:
     - uses: actions/checkout@v4
@@ -30,7 +30,8 @@ jobs:
       id: dot_env_creation
       run: |
         echo "DSN_SENTRY=${{ secrets.DSN_SENTRY }}" > .env
-        echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
+        echo "SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
+        echo "DJANGO_DATABASE_NAME=${{ secrets.DJANGO_DATABASE_NAME }}" >> .env
 
     - name: Run linting
       run: |
@@ -39,7 +40,7 @@ jobs:
       
     - name: Run Tests
       run: |
-        python manage.py tests
+        python manage.py test
       if: ${{ steps.dot_env_creation.outcome }} == "success"
 
     - name: Ensures test coverage is above 80%
