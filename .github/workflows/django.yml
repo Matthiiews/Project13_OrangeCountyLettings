@@ -69,7 +69,7 @@ jobs:
 
     - name: Ensure Docker is installed on EC2
       run: |
-        ssh -i ~/.ssh/your_key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
+        ssh -i ~/.ssh/${{ secrets.EC2_SECRET_KEY }} ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
           if ! [ -x "$(command -v docker)" ]; then
             sudo apt-get update
             sudo apt-get install -y docker.io
