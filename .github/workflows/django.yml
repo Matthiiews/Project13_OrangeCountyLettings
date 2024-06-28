@@ -74,7 +74,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: sirmattheo/OC-lettings-site:${{ github.sha }},sirmattheo/oc-lettings-site:latest
+        tags: sirmattheo/oc-lettings-site:${{ github.sha }},sirmattheo/oc-lettings-site:latest
       if: ${{ steps.dockerhub_login.outcome }} == "success"
       
     - name: Deploy Docker to AWS (EC2)
