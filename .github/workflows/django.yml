@@ -74,7 +74,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: Project13_OrangeCountyLettings:${{ github.sha }},sirmattheo/oc-lettings-site:latest
+        tags: project13_orangecountylettings:${{ github.sha }},sirmattheo/oc-lettings-site:latest
       if: ${{ steps.dockerhub_login.outcome }} == "success"
       
     - name: Deploy Docker to AWS (EC2)
