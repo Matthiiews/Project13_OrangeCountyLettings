@@ -53,6 +53,9 @@ jobs:
       run: |
         echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> $GITHUB_ENV
         echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> $GITHUB_ENV
+        echo "EC2_HOST=${{ secrets.EC2_HOST }}" >> $GITHUB_ENV
+        echo "EC2_USERNAME=${{ secrets.EC2_USERNAME }}" >> $GITHUB_ENV
+        echo "EC2_SECRET_KEY=${{ secrets.EC2_SECRET_KEY }}" >> $GITHUB_ENV
 
     - name: Log in to Docker Hub
       id: dockerhub_login
@@ -77,12 +80,6 @@ jobs:
         tags: sirmattheo/oc-lettings-site:${{ github.sha }},sirmattheo/oc-lettings-site:latest
       if: ${{ steps.dockerhub_login.outcome }} == "success"
     
-    - name: Export environment variables for EC2
-      run: |
-        echo "EC2_HOST=${{ secrets.EC2_HOST }}" >> $GITHUB_ENV
-        echo "EC2_USERNAME=${{ secrets.EC2_USERNAME }}" >> $GITHUB_ENV
-        echo "EC2_SECRET_KEY=${{ secrets.EC2_SECRET_KEY }}" >> $GITHUB_ENV
-
     - name: Deploy Docker to AWS (EC2)
       id: deployment
       uses: appleboy/ssh-action@v1.0.3
@@ -93,6 +90,6 @@ jobs:
         script: |
           docker stop sirmattheo/oc-lettings-site || true
           docker rm sirmattheo/oc-lettings-site || true
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:${{ github.sha }}
-          docker run -d -p 8000:8000 --name sirmattheo ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:${{ github.sha }}
+          docker pull ${{ env.DOCKERHUB_USERNAME }}/oc-lettings-site:${{ github.sha }}
+          docker run -d -p 8000:8000 --name sirmattheo ${{ env.DOCKERHUB_USERNAME }}/oc-lettings-site:${{ github.sha }}
       if: ${{ steps.packaging.outcome }} == "success"
