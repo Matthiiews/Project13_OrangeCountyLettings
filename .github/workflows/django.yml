@@ -50,12 +50,12 @@ jobs:
       if: ${{ steps.dot_env_creation.outcome }} == "success"
 
     - name: Export environment variables
-      run: |
-        echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> $GITHUB_ENV
-        echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> $GITHUB_ENV
-        echo "EC2_HOST=${{ secrets.EC2_HOST }}" >> $GITHUB_ENV
-        echo "EC2_USERNAME=${{ secrets.EC2_USERNAME }}" >> $GITHUB_ENV
-        echo "EC2_SECRET_KEY=${{ secrets.EC2_SECRET_KEY }}" >> $GITHUB_ENV
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        EC2_HOST: ${{ secrets.EC2_HOST }}
+        EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
+        EC2_SECRET_KEY: ${{ secrets.EC2_SECRET_KEY }}
 
     - name: Log in to Docker Hub
       id: dockerhub_login
