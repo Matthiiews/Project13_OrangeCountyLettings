@@ -82,6 +82,12 @@ jobs:
             sudo usermod -aG docker $(whoami)
             sudo usermod -aG docker $(${{ secrets.EC2_USERNAME }})
             newgrp docker
+          else
+            sudo systemctl start docker
+            sudo systemctl enable docker
+            sudo usermod -aG docker $(whoami)
+            sudo usermod -aG docker $(${{ secrets.EC2_USERNAME }})
+            newgrp docker
           fi
         
     - name: Set up Docker Buildx
