@@ -119,9 +119,10 @@ jobs:
       uses: masterjanic/docker-compose-ssh-deployment@master
       
       with:
-          ssh_host: ${ HOST_NAME }
-          ssh_user: ${ USERNAME }
+          ssh_host: ${{ secrets.EC2_HOST }}
+          ssh_user: ${{ secrets.EC2_USERNAME }}
           ssh_private_key: ${{ secrets.EC2_SECRET_KEY }}
+          use_stack: 'true'    
           script: |
             whoami
             docker stop sirmattheo/oc-lettings-site || true
