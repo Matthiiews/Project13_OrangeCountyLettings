@@ -68,15 +68,16 @@ jobs:
         if: ${{ steps.coverage_test.outcome }} == "success"
 
     - name: Ensure Docker is installed on EC2
-      uses: appleboy/ssh-action@v1.0.3
-      with: 
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_SECRET_KEY }}
-        passphrase: ${{ secrets.EC2_SECRET_KEY }}
-        password: ${{ secrets.EC2_SECRET_KEY }}
+      uses: actions/checkout@v2
+      env: 
+        PRIVATE_KEY: ${{ secrets.EC2_SECRET_KEY }}
+        HOST_NAME: ${{ secrets.EC2_HOST }}
+        USERNAME: ${{ secrets.EC2_USERNAME }}
+       
         run: |
-          sudo ssh -i ~/Oclserverubuntukey.pem ${{ env.EC2_USERNAME }}@${{ env.EC2_HOST }} << 'EOF'
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${ USERNAME }@${ HOST_NAME }
+          
             if ! [ -x "$(command -v docker)" ]; then
               sudo apt-get update
               sudo apt-get install -y docker.io
