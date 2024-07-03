@@ -112,17 +112,20 @@ jobs:
         tags: sirmattheo/oc-lettings-site:${{ github.sha }},sirmattheo/oc-lettings-site:latest
       if: ${{ steps.dockerhub_login.outcome }} == "success"
     
+      
     - name: Deploy Docker to AWS (EC2)
       id: deployment
-      uses: appleboy/ssh-action@v1.0.3
+
+      uses: masterjanic/docker-compose-ssh-deployment@master
+      
       with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_SECRET_KEY }}
-        script: |
-          whoami
-          docker stop sirmattheo/oc-lettings-site || true
-          docker rm sirmattheo/oc-lettings-site || true
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:${{ github.sha }}
-          docker run -d -p 8000:8000 --name sirmattheo ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:${{ github.sha }}
-      if: ${{ steps.packaging.outcome }} == "success"
+          ssh_host: ${ HOST_NAME }
+          ssh_user: ${ USERNAME }
+          ssh_private_key: ${{ secrets.EC2_SECRET_KEY }}
+          script: |
+            whoami
+            docker stop sirmattheo/oc-lettings-site || true
+            docker rm sirmattheo/oc-lettings-site || true
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:${{ github.sha }}
+            docker run -d -p 8000:8000 --name sirmattheo ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:${{ github.sha }}
+          if: ${{ steps.packaging.outcome }} == "success"
