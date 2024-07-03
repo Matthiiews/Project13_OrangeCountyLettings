@@ -74,7 +74,7 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SECRET_KEY }}
         run: |
-          ssh -i ~/.ssh/your_key.pem ${{ env.EC2_USERNAME }}@${{ env.EC2_HOST }} << 'EOF'
+          whoami
             if ! [ -x "$(command -v docker)" ]; then
               sudo apt-get update
               sudo apt-get install -y docker.io
