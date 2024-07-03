@@ -128,7 +128,7 @@ jobs:
     - name: Deploy Docker to AWS (EC2)
       id: deployment
 
-      uses: actions/checkout@v4
+      uses: appleboy/ssh-action@master
       
       with:
         ssh_host: ${{ secrets.EC2_HOST }}
@@ -137,7 +137,6 @@ jobs:
         use_stack: 'true'    
         script: |
           whoami
-          sshpass -p '${ EC2_PASSWD }' ssh -v -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} <<'ENDSSH'
           docker stop sirmattheo/oc-lettings-site || true
           docker rm sirmattheo/oc-lettings-site || true
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:${{ github.sha }}
