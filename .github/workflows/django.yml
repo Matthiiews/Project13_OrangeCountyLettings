@@ -73,7 +73,7 @@ jobs:
         if: ${{ steps.coverage_test.outcome }} == "success"
 
     - name: Preparing environment variables 
-      uses: actions/checkout@v5
+      uses: actions/checkout@v4
       env: 
         PRIVATE_KEY: ${{ secrets.EC2_SECRET_KEY }}
         HOST_NAME: ${{ secrets.EC2_HOST }}
