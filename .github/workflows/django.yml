@@ -111,7 +111,7 @@ jobs:
     
     - name: Deploy Docker to AWS (EC2)
       id: deployment 
-      uses: masterjanic/docker-compose-ssh-deployment@master    
+      uses: actions/checkout@v4    
       with:   
         script: |
           ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/oc-lettings-site:${{ github.sha }}'
