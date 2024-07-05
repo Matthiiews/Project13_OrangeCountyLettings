@@ -87,7 +87,8 @@ jobs:
           
     - name: Ensureing Docker service is insalled and running    
       run: |
-        ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} <<'ENDSSH'                 
+        ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}
+        ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo mkdir /home/ubuntu/app'             
           if ! [ -x "$(command -v docker)" ]; then
             sudo apt-get update
             sudo apt-get install -y docker.io
@@ -103,7 +104,7 @@ jobs:
       id: packaging
       uses: docker/build-push-action@v5.0.0
       with:
-        context: ./app
+        context: .
         dockerfile: ./Dockerfile
         push: true
         tags: sirmattheo/oc-lettings-site:${{ github.sha }},sirmattheo/oc-lettings-site:latest
