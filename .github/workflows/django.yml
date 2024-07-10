@@ -79,8 +79,8 @@ jobs:
 
       - name: Ensure Docker service is installed and running on EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'if ! [ -x "$(command -v docker)" ]; then sudo apt update && sudo apt upgrade && sudo apt install -y docker.io && sudo usermod -aG docker ${{ secrets.EC2_USERNAME }} && newgrp docker && sudo chmod 777 /var/run/docker.sock && sudo systemctl start docker && sudo systemctl enable docker; fi'
-          ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo apt install python3 && sudo apt install python3-pip && sudo apt install python3-django'
+          ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'if ! [ -x "$(command -v docker)" ]; then sudo apt update -y && sudo apt upgrade -y && sudo apt install -y docker.io && sudo usermod -aG docker ${{ secrets.EC2_USERNAME }} && newgrp docker && sudo chmod 777 /var/run/docker.sock && sudo systemctl start docker && sudo systemctl enable docker; fi'
+          ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo apt install python3 -y && sudo apt install python3-pip -y && sudo apt install python3-django -y'
         if: success()
 
       - name: Set up Docker Buildx
