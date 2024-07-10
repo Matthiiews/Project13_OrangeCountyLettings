@@ -1,13 +1,16 @@
 # Utiliser une image officielle de Python comme image de base
 FROM python:3.11-slim
 
+# Créez un répertoire nommé dans l’image Docker
+RUN mkdir /app
+
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /app
 
 # Copier les fichiers de l'application dans le conteneur
 COPY . /app/
 
-# Set some environment variables
+# Définir certaines variables d'environnement
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
@@ -22,4 +25,4 @@ ENV DJANGO_SETTINGS_MODULE=oc_lettings_site.settings.production
 EXPOSE 8000
 
 # Commande pour lancer l'application
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000", "oc_lettings_site.wsgi:application"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
