@@ -17,7 +17,7 @@ WORKDIR /app
 # Installer les dépendances
 COPY ./requirements.txt ./app/
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Copier les fichiers de l'application dans le conteneur
 COPY . /app/
