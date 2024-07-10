@@ -9,18 +9,18 @@ ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE=oc_lettings_site.settings_production
 
 # Créez un répertoire nommé dans l’image Docker
-RUN mkdir /app
+# RUN mkdir /app
 
 # Définir le répertoire de travail dans le conteneur
-WORKDIR /app
+WORKDIR .
 
 # Installer les dépendances
-COPY ./requirements.txt ./app/
+COPY requirements.txt .
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r ./app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copier les fichiers de l'application dans le conteneur
-COPY . /app/
+COPY . .
 
 # Exposer le port sur lequel l'application va tourner
 EXPOSE 8000
