@@ -12,16 +12,16 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-            python version: [3.11]
+        python version: [3.11]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v3
         with:
           python-version: 3.11
-            
+
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
@@ -34,7 +34,7 @@ jobs:
           echo "DJANGO_DATABASE_NAME=${{ secrets.DJANGO_DATABASE_NAME }}" >> .env
 
   test:
-    
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -57,11 +57,11 @@ jobs:
 
       - name: Export environment variables for deployment
         run: |
-            echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" > .env
-            echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
-            echo "EC2_HOST=${{ secrets.EC2_HOST }}" >> .env
-            echo "EC2_USERNAME=${{ secrets.EC2_USERNAME }}" >> .env
-            echo "EC2_SECRET_KEY=${{ secrets.EC2_SECRET_KEY }}" >> .env
+          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" > .env
+          echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
+          echo "EC2_HOST=${{ secrets.EC2_HOST }}" >> .env
+          echo "EC2_USERNAME=${{ secrets.EC2_USERNAME }}" >> .env
+          echo "EC2_SECRET_KEY=${{ secrets.EC2_SECRET_KEY }}" >> .env
 
   deploy:
     needs: test
