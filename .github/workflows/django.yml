@@ -98,8 +98,8 @@ jobs:
 
       - name: Deploy Docker to AWS EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo docker pull sirmattheo/oc-lettings-site:${{ github.sha }}'
           ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo docker stop oc-lettings-site || true'
-          ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo docker rm oc-lettings-site || true'
+          ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo docker system prune  --volumes -f || true'
+          ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo docker pull sirmattheo/oc-lettings-site:${{ github.sha }}'
           ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo docker run -d -p 8000:8000 --name oc-lettings-site sirmattheo/oc-lettings-site:${{ github.sha }}'
         if: success()
