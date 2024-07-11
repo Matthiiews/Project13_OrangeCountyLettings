@@ -2,9 +2,9 @@ name: Django CI and Delivery
 
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
   pull_request:
-    branches: ["main"]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -12,16 +12,17 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-            python version: [3.11]
+        python-version: [3.11]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
         with:
-          python-version: 3.11
-            
+          python-version: ${{ matrix.python-version }}
+
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
@@ -33,38 +34,31 @@ jobs:
           echo "SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> .env
           echo "DJANGO_DATABASE_NAME=${{ secrets.DJANGO_DATABASE_NAME }}" >> .env
 
-  test:
-    
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Run linting
         run: |
           flake8
-          if: success()
+        if: success()
 
       - name: Run Tests
         run: |
           python manage.py test
-          if: success()
+        if: success()
 
       - name: Ensure test coverage is above 80%
         run: |
           pytest --cov-fail-under=80
-          if: success()
+        if: success()
 
       - name: Export environment variables for deployment
         run: |
-            echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" > .env
-            echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
-            echo "EC2_HOST=${{ secrets.EC2_HOST }}" >> .env
-            echo "EC2_USERNAME=${{ secrets.EC2_USERNAME }}" >> .env
-            echo "EC2_SECRET_KEY=${{ secrets.EC2_SECRET_KEY }}" >> .env
+          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" > .env
+          echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
+          echo "EC2_HOST=${{ secrets.EC2_HOST }}" >> .env
+          echo "EC2_USERNAME=${{ secrets.EC2_USERNAME }}" >> .env
+          echo "EC2_SECRET_KEY=${{ secrets.EC2_SECRET_KEY }}" >> .env
 
   deploy:
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -76,7 +70,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           ecr: auto
-          if: success()
+        if: success()
 
       - name: Setup SSH
         run: |
@@ -87,7 +81,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'if ! [ -x "$(command -v docker)" ]; then sudo apt update -y && sudo apt upgrade -y && sudo apt install -y docker.io && sudo usermod -aG docker ${{ secrets.EC2_USERNAME }} && newgrp docker && sudo chmod 777 /var/run/docker.sock && sudo systemctl start docker && sudo systemctl enable docker; fi'
           ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo apt install python3 -y && sudo apt install python3-pip -y && sudo apt install python3-django -y'
-          if: success()
+        if: success()
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
