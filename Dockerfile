@@ -13,15 +13,15 @@ ENV DJANGO_DATABASE_NAME=oc_lettings_site
 # RUN mkdir /app
 
 # Définir le répertoire de travail dans le conteneur
-WORKDIR  /usr/src/app
+WORKDIR   /
 
 # Installer les dépendances
-COPY ./requirements.txt  /usr/src/app/
+COPY requirements.txt  .
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copier les fichiers de l'application dans le conteneur
-COPY  . /usr/src/app/
+COPY  . .
 
 # Exposer le port sur lequel l'application va tourner
 EXPOSE 8000
