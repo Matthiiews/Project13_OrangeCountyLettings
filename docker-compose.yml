@@ -6,7 +6,7 @@ services:
     volumes:
       - ./usr/local/shared/oc-lettings-site:/app/oc-lettings-site
     environment:
-      - SQLITE3_DB=oc-lettings-site.sqlite3
+      - SQLITE3_DB=oc-lettings-site.db
   web:
     build: ./app
     command:
