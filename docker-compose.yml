@@ -1,12 +1,6 @@
 version: "3.8"
 
 services:
-  db:
-    image: nouchka/sqlite3:latest # Utilise l'image Docker de SQLite3 à partir du Docker Hub
-    volumes:
-      - ./data/db:/root/db # Monte le répertoire local ./data/db dans /root/db du conteneur
-    environment:
-      - DJANGO_DATABASE_NAME=oc-lettings-site # Spécifie le nom de la base de données SQLite3
   web:
     command:
       > # Commande à exécuter pour lancer la migration et le serveur Django
