@@ -28,7 +28,8 @@ COPY  .  .
 
 # Exposer le port sur lequel l'application va tourner
 EXPOSE 8000
+EXPOSE 80
 
 # Commande pour lancer l'application avec Gunicorn
 #  CMD ["gunicorn", "--bind=0.0.0.0:8000", "oc_lettings_site.wsgi"]
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000", "oc_lettings_site.wsgi"]
+CMD ["python", "manage.py", "runserver", "0:80", "oc_lettings_site.wsgi"]

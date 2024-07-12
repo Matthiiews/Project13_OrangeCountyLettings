@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', default='default_local_secret_k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG_VALUE', default=False)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*", "13.38.251.43", "ec2-13-38-251-43.eu-west-3.compute.amazonaws.com"]
 
 
 # Application definition
