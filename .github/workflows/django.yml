@@ -98,7 +98,7 @@ jobs:
 
       - name: Deploy Docker to AWS EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo docker stop -f $(docker ps -a -q) || true'
+          ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo docker stop $(docker ps -a -q) || true'
           ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo docker rm -f $(docker ps -a -q) || true'
           ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo docker rmi -f $(docker images -a -q) || true'
           ssh -o StrictHostKeyChecking=no -i mysshkey.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'sudo docker pull sirmattheo/oc-lettings-site:${{ github.sha }}'
