@@ -13,10 +13,10 @@ ENV DJANGO_DATABASE_NAME=oc_lettings_site
 RUN mkdir /app
 
 # Définir le répertoire de travail dans le conteneur
-WORKDIR   /app
+WORKDIR /app
 
 # Installer les dépendances
-COPY  requirements.txt  .
+COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -24,12 +24,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Paris" apt-get install -y tzdata
 
 # Copier les fichiers de l'application dans le conteneur
-COPY  .  .
+COPY . .
 
 # Exposer le port sur lequel l'application va tourner
 EXPOSE 8000
-EXPOSE 80
+#EXPOSE 80
 
 # Commande pour lancer l'application avec Gunicorn
 #  CMD ["gunicorn", "--bind=0.0.0.0:8000", "oc_lettings_site.wsgi"]
-CMD ["python", "manage.py", "runserver", "0:80", "oc_lettings_site.wsgi"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000", "13.38.251.43:8000", "oc_lettings_site.wsgi"]

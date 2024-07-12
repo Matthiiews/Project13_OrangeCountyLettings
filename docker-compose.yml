@@ -1,12 +1,21 @@
 version: "3.8"
 
 services:
+  db:
+    image: nouchka/sqlite3:latest
+    volumes:
+      - ./usr/local/shared/oc-lettings-site:/app/oc-lettings-site
+    environment:
+      - SQLITE3_DB=oc-lettings-site.sqlite3
   web:
+    build: .
     command:
       > # Commande à exécuter pour lancer la migration et le serveur Django
-      sh -c "python manage.py migrate &&                        
-             python manage.py runserver 0:80"
+      sh -c "python manage.py migrate &&                 
+              python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
     ports:
-      - "80:80" # Exposer le port 80 du conteneur sur le port 8000 de l'hôte
+      - "8000:8000" # Exposer le port 80 du conteneur sur le port 8000 de l'hôte
     depends_on:
       - db # Assure que le service 'db' est démarré avant le service 'web'
