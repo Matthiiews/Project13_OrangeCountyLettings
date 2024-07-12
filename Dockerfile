@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED 1
 
 # Ajouter des variables d'environnement pour la production
 ENV DJANGO_SETTINGS_MODULE=oc_lettings_site.settings
-ENV DJANGO_DATABASE_NAME=oc_lettings_site
+ENV DJANGO_DATABASE_NAME=oc-lettings-site
 ENV DEBUG_VALUE=True
 
 # Créez un répertoire nommé dans l’image Docker
@@ -26,6 +26,7 @@ RUN apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Paris" apt-get
 
 # Copier les fichiers de l'application dans le conteneur
 COPY . .
+# COPY oc-lettings-site 
 
 # Exposer le port sur lequel l'application va tourner
 EXPOSE 8000

@@ -2,9 +2,9 @@ version: "3.8"
 
 services:
   db:
-    # image: nouchka/sqlite3:latest
+    image: nouchka/sqlite3:latest
     volumes:
-      - ./data/oc-lettings-site:/app/oc-lettings-site
+      - ./usr/local/shared:/app
     environment:
       - SQLITE3_DB=oc-lettings-site.sqlite3
   web:
