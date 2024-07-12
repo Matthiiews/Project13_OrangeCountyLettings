@@ -1,7 +1,6 @@
 import os
 import sentry_sdk
 import environ
-
 from dotenv import load_dotenv
 from sentry_sdk.integrations.django import DjangoIntegration
 from pathlib import Path
@@ -25,6 +24,12 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', default='default_local_secret_k
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG_VALUE', default=False)
+
+SECURE_CONTENT_TYPE_NOSNIFF = False
+SECURE_BROWSER_XSS_FILTER = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -124,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 

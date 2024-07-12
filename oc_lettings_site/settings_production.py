@@ -15,7 +15,11 @@ if not os.path.exists(LOG_DIR):
     os.makedirs(LOG_DIR)
 
 # take environment variables from .env
-load_dotenv()
+env_path = load_dotenv(os.path.join(BASE_DIR, '.env'))
+load_dotenv(env_path)
+
+DEBUG = True
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -24,9 +28,10 @@ load_dotenv()
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', default='default_local_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG_VALUE', default=False)
+# DEBUG = os.environ.get('DEBUG_VALUE', default=False)
 
-ALLOWED_HOSTS = ["*", "13.38.251.43", "ec2-13-38-251-43.eu-west-3.compute.amazonaws.com"]
+ALLOWED_HOSTS = [
+      '', "127.0.0.1", "13.38.251.43", "ec2-13-38-251-43.eu-west-3.compute.amazonaws.com"]
 
 
 # Application definition
@@ -82,10 +87,10 @@ WSGI_APPLICATION = 'oc_lettings_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+# env = environ.Env()
+# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-DATABASE_NAME = os.environ.get('DJANGO_DATABASE_NAME', 'default_db_name')
+# DATABASE_NAME = os.environ.get('DJANGO_DATABASE_NAME', 'default_db_name')
 
 DATABASES = {
     'default': {
@@ -154,7 +159,7 @@ STATICFILES_DIRS = [
 
 # Settings for Sentry
 try:
-    DSN_SENTRY = os.environ['DSN_SENTRY']
+    DSN_SENTRY = os.environ.get('DSN_SENTRY')
 except KeyError:
     DSN_SENTRY = ''
 
