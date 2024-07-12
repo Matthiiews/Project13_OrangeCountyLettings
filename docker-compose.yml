@@ -4,12 +4,15 @@ services:
   db:
     image: nouchka/sqlite3:latest
     volumes:
-      - ./usr/local/shared/oc-lettings-site:/oc-lettings-site
+      - ./usr/local/shared/oc-lettings-site.sqlite3:./oc-lettings-site.sqlite3
     environment:
       - SQLITE3_DB=oc-lettings-site.sqlite3
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command:
+      > # Commande à exécuter pour lancer la migration et le serveur Django
+      sh -c "python manage.py migrate &&                 
+              python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/
     ports:
