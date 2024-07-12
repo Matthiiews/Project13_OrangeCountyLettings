@@ -1,6 +1,6 @@
 import os
 import sentry_sdk
-import environ
+
 
 from dotenv import load_dotenv
 from sentry_sdk.integrations.django import DjangoIntegration
