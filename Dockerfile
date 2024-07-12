@@ -10,10 +10,10 @@ ENV DJANGO_SETTINGS_MODULE=oc_lettings_site.settings_production
 ENV DJANGO_DATABASE_NAME=oc_lettings_site
 
 # Créez un répertoire nommé dans l’image Docker
-RUN mkdir /app
+# RUN mkdir /app
 
 # Définir le répertoire de travail dans le conteneur
-WORKDIR /app
+WORKDIR /
 
 # Installer les dépendances
 COPY requirements.txt .
