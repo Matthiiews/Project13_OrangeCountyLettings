@@ -11,7 +11,8 @@ services:
     build: .
     command:
       > # Commande à exécuter pour lancer la migration et le serveur Django
-      sh -c "python manage.py migrate &&                 
+      sh -c "python manage.py migrate &&
+              python manage.py migrate &&                 
               python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
