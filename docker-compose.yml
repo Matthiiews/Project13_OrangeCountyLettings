@@ -12,10 +12,10 @@ services:
     command:
       > # Commande à exécuter pour lancer la migration et le serveur Django
       sh -c "python manage.py makemigrations && python manage.py migrate &&                 
-              gunicorn --bind=0.0.0.0:8000 oc_lettings_site.wsgi"
+              "gunicorn", "--bind=0.0.0.0:8000", "oc_lettings_site.wsgi"
     volumes:
       - .:/app
     ports:
-      - "8000:8000" # Exposer le port 80 du conteneur sur le port 8000 de l'hôte
+      - "8000:8000" # Exposer le port 8000 du conteneur sur le port 8000 de l'hôte
     depends_on:
       - db # Assure que le service 'db' est démarré avant le service 'web'

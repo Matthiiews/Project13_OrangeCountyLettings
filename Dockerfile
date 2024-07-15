@@ -27,10 +27,10 @@ RUN apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Paris" apt-get
 # Copier les fichiers de l'application dans le conteneur
 COPY . .
 # COPY oc-lettings-site 
+# RUN pip install gunicorn
 
 # Exposer le port sur lequel l'application va tourner
 EXPOSE 8000
 
 # Commande pour lancer l'application avec Gunicorn
-#  CMD ["gunicorn", "--bind=0.0.0.0:8000", "oc_lettings_site.wsgi"]
-CMD ["gunicorn --bind=0.0.0.0:8000 oc_lettings_site.wsgi"]
+CMD ["gunicorn", "--bind=0.0.0.0:8000", "oc_lettings_site.wsgi"]
