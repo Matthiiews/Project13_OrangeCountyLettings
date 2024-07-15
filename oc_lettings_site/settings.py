@@ -99,11 +99,11 @@ DATABASES = {
     }
 }
 
-DOCKER_USERNAME = os.environ.get('DOCKER_USERNAME')
-DOCKER_PASSWORD = os.environ.get('DOCKER_PASSWORD')
-EC2_HOST = os.environ.get('EC2_HOST')
-EC2_USERNAME = os.environ.get('EC2_USERNAME')
-EC2_SECRET_KEY = os.environ.get('EC2_SECRET_KEY')
+# DOCKER_USERNAME = os.environ.get('DOCKER_USERNAME')
+# DOCKER_PASSWORD = os.environ.get('DOCKER_PASSWORD')
+# EC2_HOST = os.environ.get('EC2_HOST')
+# EC2_USERNAME = os.environ.get('EC2_USERNAME')
+# EC2_SECRET_KEY = os.environ.get('EC2_SECRET_KEY')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

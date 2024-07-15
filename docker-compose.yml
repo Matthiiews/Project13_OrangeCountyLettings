@@ -12,7 +12,7 @@ services:
     command:
       > # Commande à exécuter pour lancer la migration et le serveur Django
       sh -c "python manage.py makemigrations && python manage.py migrate &&                 
-              python manage.py runserver 0.0.0.0:8000"
+              gunicorn --bind=0.0.0.0:8000 oc_lettings_site.wsgi"
     volumes:
       - .:/app
     ports:
