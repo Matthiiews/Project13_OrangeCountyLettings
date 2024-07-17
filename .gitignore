@@ -6,3 +6,4 @@ venv
 htmlcov
 utils
 logs
+docs/build
