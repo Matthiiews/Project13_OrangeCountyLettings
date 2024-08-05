@@ -21,7 +21,8 @@
         <script src="_static/translations.js?v=bf059b8c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Recherche" href="search.html" /> 
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="Description de l’application" href="project_description.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,12 +44,17 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Welcome to Oclettings’s documentation!</a></li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Table des matières:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="project_description.html">Description de l’application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Démarrage rapide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base_de_donn%C3%A9es.html">Base de données</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developpement.html">Processus de développement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide_utilisation.html">Guide d’utilisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploiement.html">Processus de déploiement</a></li>
 </ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -75,23 +81,88 @@
              
   <section id="welcome-to-oclettings-s-documentation">
 <h1>Welcome to Oclettings’s documentation!<a class="headerlink" href="#welcome-to-oclettings-s-documentation" title="Lien vers cette rubrique"></a></h1>
-<p>My documentation</p>
+<p>Orange County Lettings est une agence de location immobilière. Sur le site, vous pouvez consulter plusieurs lieux de location ainsi que les profils des utilisateurs.</p>
+<img alt="Orange County Lettings" src="_images/lettings.png" />
+<section id="les-technologies">
+<h2>Les technologies<a class="headerlink" href="#les-technologies" title="Lien vers cette rubrique"></a></h2>
+<p>Il s’agit d’une application écrite avec Django en langage Python. Les données sont stockées dans la base de données SQLite3.</p>
+<dl class="simple">
+<dt>Les différents outils utilisés pour le développement et le déploiement de cette application sont :</dt><dd><ul class="simple">
+<li><p>Github Actions pour la gestion de projet, le tableau des problèmes et les jalons</p></li>
+<li><p>Visual Studio Code pour le développement</p></li>
+<li><p>Git pour le stockage du code et le contrôle de version</p></li>
+<li><p>Sentinelle pour surveiller les performances du site</p></li>
+<li><p>Docker et Docker Desktop pour la conteneurisation de code</p></li>
+<li><p>GitHub actions pour l’intégration et la livraison continue de code</p></li>
+<li><p>Lire la documentation, pour publier la documentation</p></li>
+<li><p>AWS en tant qu’exécuteur pour le processus CI-CD</p></li>
+<li><p>AWS EC2 pour le déploiement sur une url publique</p></li>
+</ul>
+</dd>
+</dl>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Table des matières:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="project_description.html">Description de l’application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="project_description.html#page-d-accueil">Page d’accueil</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project_description.html#demande-de-location">Demande de location</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project_description.html#demande-de-profils">Demande de profils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#cloner-le-depot-github">Cloner le dépôt GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#creer-l-environnement-virtuel">Créer l’environnement virtuel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#lier-le-projet-a-sentry">Lier le projet à Sentry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#lancer-le-site">Lancer le site</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Démarrage rapide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base_de_donn%C3%A9es.html">Base de données</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base_de_donn%C3%A9es.html#modeles">Modèles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developpement.html">Processus de développement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="developpement.html#executez-le-site-localement-avec-django">Exécutez le site localement avec Django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developpement.html#executez-le-site-localement-via-docker">Exécutez le site localement via Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developpement.html#controle-de-qualite">Contrôle de qualité</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developpement.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developpement.html#isort">isort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developpement.html#black">black</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developpement.html#pylint">pylint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developpement.html#pytest">Pytest</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guide_utilisation.html">Guide d’utilisation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guide_utilisation.html#acces-au-site">Accès au site</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_utilisation.html#acces-aux-profils-utilisateurs-profiles">Accès aux profils utilisateurs (profiles)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide_utilisation.html#acces-aux-locations-lettings">Accès aux locations (lettings)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deploiement.html">Processus de déploiement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deploiement.html#description-du-flux-de-travail">Description du flux de travail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploiement.html#versionnage">Versionnage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploiement.html#pipeline">Pipeline</a></li>
+</ul>
+</li>
+</ul>
 </div>
-</section>
 <section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Lien vers cette rubrique"></a></h1>
+<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Lien vers cette rubrique"></a></h3>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Index du module</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Page de recherche</span></a></p></li>
 </ul>
 </section>
+</section>
+</section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="project_description.html" class="btn btn-neutral float-right" title="Description de l’application" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
