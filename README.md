@@ -115,4 +115,4 @@ EC2_SECRET_KEY >> Contenu du fichier .pem généré lors de la création de l'in
 
 ## Documentation
 
-Vous pouvez consulter la documentation du site en vous rendant sur le lien suivant : [https://oc-cg-p13.readthedocs.io/](https://oc-cg-p13.readthedocs.io/)
+Vous pouvez consulter la documentation du site en vous rendant sur le lien suivant : [https://project13-orangecountylettings.readthedocs.io/](https://project13-orangecountylettings.readthedocs.io/)
