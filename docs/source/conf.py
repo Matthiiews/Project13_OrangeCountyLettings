@@ -20,7 +20,8 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.duration',
               'sphinx.ext.autosummary',
               'sphinx.ext.intersphinx',
-              'sphinx.ext.doctest',]
+              'sphinx.ext.doctest',
+              ]
 
 source_suffix = {
     ".rst": "restructuredtext",
